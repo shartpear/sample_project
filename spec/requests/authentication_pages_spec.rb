@@ -33,6 +33,7 @@ describe "Authentication" do
       end
 
       it { should have_selector('title', text: user.name) }
+      it { should have_link('Users',    href: users_path) }
       it { should have_link('Profile', href: user_path(user)) }
       it { should have_link('Sign out', href: signout_path) }
       it { should have_link('Settings', href: edit_user_path(user)) }
@@ -77,6 +78,12 @@ end
           before { put user_path(user) }
           specify { response.should redirect_to(signin_path) }
         end
+        
+        describe "visiting the user index" do
+          before { visit users_path }
+          it { should have_selector('title', text: 'Sign in') }
+        end
+        
       end#end of in the users controller
       
     end#end of for non-signed in users
