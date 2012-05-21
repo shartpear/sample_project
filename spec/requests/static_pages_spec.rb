@@ -2,13 +2,13 @@ require 'spec_helper'
 
 describe "StaticPages" do
   
-  let(:base_title) { "Whispering Words" }
+  let(:base_title) { "Whispered Words" }
   
   describe "Home page" do
     before{visit root_path}
-    it "should have the header 'Whispering Words'" do
+    it "should have the header 'Whispered Words'" do
       # Run the generator again with the --webrat flag if you want to use webrat methods/matchers
-        page.should have_selector('h1',:text => 'Whispering Words')
+        page.should have_selector('h1',:text => 'Whispered Words')
     end
     it "should have the right title" do
       page.should have_selector('title', :text => "#{base_title}")
