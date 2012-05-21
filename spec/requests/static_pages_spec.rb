@@ -2,13 +2,13 @@ require 'spec_helper'
 
 describe "StaticPages" do
   
-  let(:base_title) { "Ruby on Rails Tutorial Sample App" }
+  let(:base_title) { "Whispering Words" }
   
   describe "Home page" do
     before{visit root_path}
-    it "should have the header 'Sample App'" do
+    it "should have the header 'Whispering Words'" do
       # Run the generator again with the --webrat flag if you want to use webrat methods/matchers
-        page.should have_selector('h1',:text => 'Sample App')
+        page.should have_selector('h1',:text => 'Whispering Words')
     end
     it "should have the right title" do
       page.should have_selector('title', :text => "#{base_title}")
@@ -16,7 +16,23 @@ describe "StaticPages" do
     it "should not have a custom page title" do
       page.should_not have_selector('title', :text => '| Home')
     end
-  end
+    
+    describe "for signed-in users" do
+      let(:user) { FactoryGirl.create(:user) }
+      before do
+        FactoryGirl.create(:micropost, user: user, content: "Lorem ipsum")
+        FactoryGirl.create(:micropost, user: user, content: "Dolor sit amet")
+        sign_in user
+        visit root_path
+      end
+
+      it "should render the user's feed" do
+        user.feed.each do |item|
+          page.should have_selector("li##{item.id}", text: item.content)
+        end
+      end
+    end#end of for signed-in users
+  end#end of home page
   
   describe "Help Page" do
     before{visit help_path}
