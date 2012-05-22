@@ -13,6 +13,7 @@ def make_users
                        password: "foobar",
                        password_confirmation: "foobar")
   admin.toggle!(:admin)
+=begin
   70.times do |n|
     name  = Faker::Name.name
     email = "example-#{n+1}@railstutorial.org"
@@ -22,8 +23,9 @@ def make_users
                  password: password,
                  password_confirmation: password)
   end
+=end
 end
-
+=begin
 def make_microposts
   users = User.all(limit: 6)
   50.times do
@@ -31,7 +33,8 @@ def make_microposts
     users.each { |user| user.microposts.create!(content: content) }
   end
 end
-
+=end
+=begin
 def make_relationships
   users = User.all
   user  = users.first
@@ -40,3 +43,4 @@ def make_relationships
   followed_users.each { |followed| user.follow!(followed) }
   followers.each      { |follower| follower.follow!(user) }
 end
+=end
